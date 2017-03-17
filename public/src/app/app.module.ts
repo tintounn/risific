@@ -11,9 +11,14 @@ import { ChapterComponent } from './pages/chapter/chapter.component';
 import { UserComponent } from './pages/user/user.component';
 import { StoryCardComponent } from './component/story-card/story-card.component';
 
+import { UserFactory } from './models/user';
+import { StoryFactory } from './models/story';
+import { ChapterFactory } from './models/chapter';
+
 import { SessionService } from './services/session.service';
 import { RequestService } from './services/request.service';
 import { AuthComponent } from './pages/auth/auth.component';
+import { EditorComponent } from './component/editor/editor.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -28,7 +33,8 @@ const routes: Routes = [
     ChapterComponent,
     UserComponent,
     StoryCardComponent,
-    AuthComponent
+    AuthComponent,
+    EditorComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -36,7 +42,7 @@ const routes: Routes = [
     FormsModule,
     HttpModule
   ],
-  providers: [SessionService, RequestService],
+  providers: [SessionService, RequestService, UserFactory, StoryFactory, ChapterFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

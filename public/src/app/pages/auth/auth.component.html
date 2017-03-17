@@ -1,5 +1,6 @@
 <div class="row">
-  <form class="col-4 offset-4">
+  <form class="col-6 offset-3 col-md-3 offset-md-2">
+    <h3>Connexion</h3>
     <div class="form-group row">
       <label for="username">Pseudo</label>
       <input [(ngModel)]="username" name="username" type="text" class="form-control" id="username"/>
@@ -12,6 +13,33 @@
       <div class="row justify-content-center">
         <div class="col col-8">
           <button (click)="login()" type="submit" class="btn btn-primary" style="width: 100%">Connexion</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <form class="col-6 offset-3 col-md-3 offset-md-1">
+    <h3>Creation d'un compte</h3>
+    <div class="form-group row">
+      <label for="username">Pseudo</label>
+      <input [(ngModel)]="signupData.username" name="username" type="text" class="form-control" id="nusername"/>
+    </div>
+    <div class="form-group row">
+      <label for="nemail">Email</label>
+      <input [(ngModel)]="signupData.email" name="nemail" type="email" class="form-control" id="nemail"/>
+    </div>
+    <div class="form-group row">
+      <label for="npassword">Mot de passe</label>
+      <input [(ngModel)]="signupData.password" name="npassword" type="password" class="form-control" id="npassword"/>
+    </div>
+    <div class="form-group row">
+      <label for="nconfirmpassword">Repeter mot de passe</label>
+      <input [(ngModel)]="signupData.confirmPassword" name="nconfirmpassword" type="password" class="form-control" id="nconfirmpassword"/>
+    </div>
+    <div class="form-group">
+      <div class="row justify-content-center">
+        <div class="col col-8">
+          <button (click)="signup()" type="submit" class="btn btn-primary" style="width: 100%">Créer le compte</button>
         </div>
       </div>
     </div>
