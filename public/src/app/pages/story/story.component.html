@@ -1,3 +1,19 @@
-<p>
-  {{story.name}}
-</p>
+
+
+<ng-container *ngIf="story">
+
+  <h1 class="text-center">{{story.titre}}</h1>
+
+  <img class="rounded mx-auto d-block" src="{{story.image}}"/>
+
+  <p class="text-center">{{story.description}}</p>
+
+  <h3>Chapitres:</h3>
+
+  <div class="list-group">
+    <ng-container *ngFor="let chapter of story.chapters; let i = index;">
+      <app-chapter-card [index]="i" [chapter]="chapter"></app-chapter-card>
+    </ng-container>
+  </div>
+
+</ng-container>

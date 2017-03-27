@@ -21,7 +21,8 @@ import { EditorComponent } from './component/editor/editor.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'auth', component: AuthComponent}
+  {path: 'auth', component: AuthComponent},
+  {path: 'stories/:id', component: StoryComponent}
 ];
 
 @NgModule({

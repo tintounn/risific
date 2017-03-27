@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Story, StoryFactory } from '../../models/story';
 import { EditorComponent } from '../../component/editor/editor.component';
@@ -10,9 +11,19 @@ import { EditorComponent } from '../../component/editor/editor.component';
 })
 export class StoryComponent implements OnInit {
 
-  constructor() { }
+  public story: Story;
+
+  constructor(private route: ActivatedRoute, private storyFactory: StoryFactory) { }
 
   ngOnInit() {
+    let id = this.route.snapshot.params['id'];
+
+    this.storyFactory.findOne(id).then((res) => {
+      console.log(res);
+      this.story = res;
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
 }
@@ -70,7 +81,7 @@ export class StoryEditor implements OnInit {
     <div class="card">
       <img class="card-img-top" src="{{story.image}}" alt="Card image cap">
       <div class="card-block">
-        <h4 class="card-title">{{story.titre}}</h4>
+        <h4 class="card-title"><a [routerLink]="'/stories/' + story.id">{{story.titre}}</a></h4>
         <p class="card-text">{{story.description}}</p>
       </div>
       <div class="card-footer">
@@ -83,9 +94,8 @@ export class StoryCard implements OnInit {
 
   @Input('story') story: Story = null;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
 }

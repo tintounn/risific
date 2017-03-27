@@ -35,16 +35,8 @@ module.exports = {
 
   findOne: function(req, res) {
     let id = req.params.id;
-    let fullFind = req.query.full;
-    let promise;
 
-    if(!fullFind) {
-      promise = Story.findOne({id: id});
-    } else {
-      promise = Story.findOne({id: id}).populate('chapters', {select: ['titre']}).populate('owner', {select: ['username']});
-    }
-
-    promise.then((story) => {
+    Story.findOne({id: id}).populate('chapters', {select: ['titre']}).populate('owner', {select: ['username']}).then((story) => {
       res.send(200, story);
     }).catch((err) => {
       res.send(500, err);

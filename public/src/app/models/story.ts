@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Rx";
 import {RequestService} from "../services/request.service";
+import {Chapter} from "./chapter";
 
 export class Story {
 
@@ -11,6 +12,7 @@ export class Story {
   public createdAt: string;
   public updatedAt: string;
   public owner: any;
+  public chapters: Array<Chapter>;
 
   constructor(data: any) {
     if(data.id) this.id = data.id;
@@ -20,6 +22,7 @@ export class Story {
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;
     this.owner = data.owner;
+    this.chapters = data.chapters;
   }
 
 }

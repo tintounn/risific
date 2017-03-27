@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import {Chapter} from "../../models/chapter";
 
 @Component({
   selector: 'app-chapter',
@@ -28,9 +29,16 @@ export class ChapterEditor implements OnInit {
 
 @Component({
   selector: 'app-chapter-card',
-  template: ''
+  template: `
+
+    <a style="margin-top: 10px; margin-bottom: 10px" href="#" class="list-group-item list-group-item-action">Chapitre {{index+1}}: {{chapter.titre}}</a>
+
+  `
 })
 export class ChapterCard implements OnInit {
+
+  @Input('chapter') chapter: Chapter = null;
+  @Input('index') index: number = null;
 
   constructor() { }
 
