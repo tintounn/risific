@@ -25,6 +25,13 @@ module.exports = {
     stories: {
       collection: 'story',
       via: 'owner'
+    },
+
+    toJSON: function() {
+      let obj = this.toObject();
+      delete obj.password;
+      delete obj.email;
+      return obj;
     }
   }
 };

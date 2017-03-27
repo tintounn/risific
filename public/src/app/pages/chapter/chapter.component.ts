@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-chapter',
@@ -12,4 +12,29 @@ export class ChapterComponent implements OnInit {
   ngOnInit() {
   }
 
+}
+
+@Component({
+  selector: 'app-chapter-editor',
+  template: ''
+})
+export class ChapterEditor implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+}
+
+@Component({
+  selector: 'app-chapter-card',
+  template: ''
+})
+export class ChapterCard implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+
+  }
 }

@@ -8,12 +8,18 @@ export class Story {
   public titre: string;
   public description: string;
   public image: string;
+  public createdAt: string;
+  public updatedAt: string;
+  public owner: any;
 
   constructor(data: any) {
     if(data.id) this.id = data.id;
     this.titre = data.titre;
     this.description = data.description;
     this.image = data.image;
+    this.createdAt = data.createdAt;
+    this.updatedAt = data.updatedAt;
+    this.owner = data.owner;
   }
 
 }
@@ -36,6 +42,30 @@ export class StoryFactory {
 
   findOne(id: number): Promise<Story> {
     return this.request.get('/stories/' + id).then(response => new Story(response.json()));
+  }
+
+  update(story: Story): Promise<Story> {
+    return this.request.put('/stories/' + story.id, story).then(response => new Story(response.json()));
+  }
+
+  lastest(limit: number): Promise<Story[]> {
+    return this.request.get('/stories/lastest', "limit="+limit).then(response => response.json().map((elt) => {return new Story(elt)}));
+  }
+
+  mostViewed(limit: number): Promise<Story[]> {
+    return this.request.get('/stories/mostviewed', "limit="+limit).then(response => response.json().map((elt) => {return new Story(elt)}));
+  }
+
+  createOrUpdate(story: Story): Promise<Story> {
+    let promise: Promise<Story>;
+
+    if(story.id) {
+      promise = this.update(story);
+    } else {
+      promise = this.create(story);
+    }
+
+    return promise;
   }
 }
 

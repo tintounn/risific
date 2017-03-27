@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {RequestService} from "../../services/request.service";
 import {SessionService} from "../../services/session.service";
@@ -10,20 +11,20 @@ import {UserFactory} from "../../models/user";
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  private username: string;
-  private password: string;
 
-  private signupData: any = {};
+  public loginData: any = {};
+  public signupData: any = {};
 
   constructor(private request: RequestService, private session: SessionService,
-              private userFactory: UserFactory) { }
+              private userFactory: UserFactory, private router: Router) { }
 
   ngOnInit() {
   }
 
   login() {
-    this.request.post('/login', {username: this.username, password: this.password}).then((res) => {
-      console.log(res);
+    this.request.post('/login', this.loginData).then((res) => {
+      this.session.set('user', res);
+      this.router.navigateByUrl('/');
     }).catch((err) => {
       console.log(err);
     });

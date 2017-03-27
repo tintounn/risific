@@ -6,10 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { StoryComponent } from './pages/story/story.component';
-import { ChapterComponent } from './pages/chapter/chapter.component';
+import { StoryComponent, StoryEditor, StoryCard } from './pages/story/story.component';
+import { ChapterComponent, ChapterEditor, ChapterCard } from './pages/chapter/chapter.component';
 import { UserComponent } from './pages/user/user.component';
-import { StoryCardComponent } from './component/story-card/story-card.component';
 
 import { UserFactory } from './models/user';
 import { StoryFactory } from './models/story';
@@ -29,10 +28,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    StoryComponent,
-    ChapterComponent,
+    StoryComponent, StoryEditor, StoryCard,
+    ChapterComponent, ChapterEditor, ChapterCard,
     UserComponent,
-    StoryCardComponent,
     AuthComponent,
     EditorComponent
   ],

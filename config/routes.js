@@ -49,9 +49,12 @@ module.exports.routes = {
   'get /connected': 'UserController.isConnected',
 
   'get /stories': 'StoryController.find',
+  'get /stories/lastest': 'StoryController.lastest',
+  'get /stories/mostviewed': 'StoryController.mostviewed',
   'get /stories/:id': 'StoryController.findOne',
   'post /stories': 'StoryController.create',
   'delete /stories/:id': 'StoryController.delete',
+  'put /stories/:id': 'StoryController.update',
 
   'get /stories/:storyId/chapters': 'ChapterController.find',
   'get /stories/:storyId/chapters/:id': 'ChapterController.findOne',
