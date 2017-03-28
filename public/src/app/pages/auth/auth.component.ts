@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
 
   login() {
     this.request.post('/login', this.loginData).then((res) => {
-      this.session.set('user', res);
+      this.session.set('user', res.json());
       this.router.navigateByUrl('/');
     }).catch((err) => {
       console.log(err);

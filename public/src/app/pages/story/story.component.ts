@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Story, StoryFactory } from '../../models/story';
 import { EditorComponent } from '../../component/editor/editor.component';
+import {SessionService} from "../../services/session.service";
+import {Chapter} from "../../models/chapter";
 
 @Component({
   selector: 'app-story',
@@ -13,19 +15,21 @@ export class StoryComponent implements OnInit {
 
   public story: Story;
 
-  constructor(private route: ActivatedRoute, private storyFactory: StoryFactory) { }
+  constructor(private route: ActivatedRoute, private storyFactory: StoryFactory, public session: SessionService) { }
 
   ngOnInit() {
     let id = this.route.snapshot.params['id'];
 
     this.storyFactory.findOne(id).then((res) => {
-      console.log(res);
       this.story = res;
     }).catch((err) => {
       console.log(err);
     });
   }
 
+  chapterSaved(chapter: Chapter) {
+    this.story.chapters.push(chapter);
+  }
 }
 
 
@@ -59,7 +63,7 @@ export class StoryEditor implements OnInit {
   @Input('story') story: Story = new Story({});
   @Output('saved') savedEvent: EventEmitter<Story> = new EventEmitter();
 
-  constructor(private storyFactory: StoryFactory) { }
+  constructor(private storyFactory: StoryFactory, private session: SessionService) { }
 
   ngOnInit() {
   }
@@ -85,7 +89,7 @@ export class StoryEditor implements OnInit {
         <p class="card-text">{{story.description}}</p>
       </div>
       <div class="card-footer">
-        <small class="text-muted">Creer le {{story.createdAt}} par {{story.owner.username}} </small>
+        <small class="text-muted">Creer le {{story.createdAt.split('T')[0]}} par {{story.owner.username}} </small>
       </div>
     </div>
   `
@@ -96,6 +100,5 @@ export class StoryCard implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 }

@@ -1,12 +1,15 @@
 import {Injectable} from "@angular/core";
 import {RequestService} from "../services/request.service";
+import {Story} from "./story";
 export class User {
 
   private username: string;
   private email: string;
+  private stories: Array<Story> = [];
 
   constructor(data: any) {
     this.username = data.username;
+    if(data.stories) this.stories = data.stories;
     if(data.email) this.email = data.email;
   }
 }

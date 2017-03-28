@@ -15,6 +15,13 @@ export class SessionService {
 
     return this.data[key];
   }
+
+  isMyOwnStory(ownerId: number): boolean {
+    if(this.get('user')) {
+      let user = this.get('user');
+      return (user.id == ownerId);
+    } else return false;
+  }
 }
 
 interface Associative {

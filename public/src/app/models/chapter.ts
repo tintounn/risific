@@ -6,11 +6,17 @@ export class Chapter {
   public id: number;
   public titre: string;
   public text: string;
+  public createdAt: string;
+  public updatedAt: string;
+  public story: number;
 
   constructor(data: any) {
     if(data.id) this.id = data.id;
     this.titre = data.titre;
     this.text = data.text;
+    this.story = data.story;
+    this.createdAt = data.createdAt;
+    this.updatedAt = data.updatedAt;
   }
 }
 
@@ -32,5 +38,21 @@ export class ChapterFactory {
 
   findOne(storyId: number, chapterId: number): Promise<Chapter> {
     return this.request.get('/stories/' + storyId + '/chapters/' + chapterId).then(response => new Chapter(response.json()));
+  }
+
+  update(storyId: number, chapter: Chapter): Promise<Chapter> {
+    return this.request.put('/stories/' + storyId + '/chapters/' + chapter.id, chapter).then(response => new Chapter(response.json()));
+  }
+
+  createOrUpdate(chapter: Chapter): Promise<Chapter> {
+    let promise;
+
+    if(chapter.id) {
+      promise = this.update(chapter.story, chapter);
+    } else {
+      promise = this.create(chapter.story, chapter);
+    }
+
+    return promise;
   }
 }

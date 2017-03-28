@@ -1,5 +1,3 @@
-
-
 <ng-container *ngIf="story">
 
   <h1 class="text-center">{{story.titre}}</h1>
@@ -10,10 +8,35 @@
 
   <h3>Chapitres:</h3>
 
-  <div class="list-group">
-    <ng-container *ngFor="let chapter of story.chapters; let i = index;">
-      <app-chapter-card [index]="i" [chapter]="chapter"></app-chapter-card>
-    </ng-container>
+  <ng-container *ngIf="session.isMyOwnStory(story.owner.id)">
+    <button class="btn btn-primary" data-toggle="modal" data-target=".new-chapter">Ecrire un nouveau chapitre</button>
+  </ng-container>
+
+  <ng-container *ngFor="let chapter of story.chapters; let i = index;">
+    <app-chapter-card [index]="i" [chapter]="chapter"></app-chapter-card>
+  </ng-container>
+
+  <div class="modal fade new-chapter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Nouveau chapitre</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="container">
+            <app-chapter-editor [storyId]="story.id" (saved)="chapterSaved($event)"></app-chapter-editor>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   </div>
+
 
 </ng-container>

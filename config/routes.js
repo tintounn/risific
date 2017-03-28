@@ -56,10 +56,10 @@ module.exports.routes = {
   'delete /stories/:id': 'StoryController.delete',
   'put /stories/:id': 'StoryController.update',
 
-  'get /stories/:storyId/chapters': 'ChapterController.find',
-  'get /stories/:storyId/chapters/:id': 'ChapterController.findOne',
-  'post /stories/:storyId/chapters': 'ChapterController.create',
-  'delete /stories/:storyId/chapters/:id': 'ChapterController.delete',
+  'get /stories/:story/chapters': 'ChapterController.find',
+  'get /stories/:story/chapters/:id': 'ChapterController.findOne',
+  'post /stories/:story/chapters': 'ChapterController.create',
+  'delete /stories/:story/chapters/:id': 'ChapterController.delete',
 
 
 

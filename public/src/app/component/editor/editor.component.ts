@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-editor',
@@ -7,6 +7,7 @@ import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 })
 export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @Input('id') id: string;
   public editor: any;
 
   constructor() { }
@@ -24,7 +25,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     tinymce.init({
-      selector: '#editor',
+      selector: '#' + this.id,
       plugin: ['link', 'paste', 'table'],
       skin_url: 'assets/skins/lightgray',
       setup: (editor) => {

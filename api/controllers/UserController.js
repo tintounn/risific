@@ -25,7 +25,7 @@ module.exports = {
 	login: function(req, res) {
     let data = req.body;
 
-    User.findOne({username: data.username, password: data.password}).then((user) => {
+    User.findOne({username: data.username, password: data.password}).populate('stories', {select: ['id']}).then((user) => {
       req.session.authenticated = true;
       req.session.user = user;
 

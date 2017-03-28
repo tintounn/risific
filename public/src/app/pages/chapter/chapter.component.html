@@ -1,3 +1,7 @@
-<p>
-  chapter works!
-</p>
+<ng-container *ngIf="chapter">
+
+  <h2 class="text-center">{{chapter.titre}}</h2>
+
+  <div #dataContainer></div>
+
+</ng-container>

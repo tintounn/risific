@@ -49,6 +49,7 @@ module.exports = {
     data.owner = req.session.user.id;
 
     Story.create(data).then((story) => {
+      req.session.user.stories.push(story.id);
       res.send(201, story);
     }).catch((err) => {
       res.send(500, err);
@@ -59,6 +60,9 @@ module.exports = {
     let id = req.params.id;
 
     Story.destroy({id: id}).then(() => {
+      let index = req.session.user.stories.indexOf(id);
+      if(index != 1) req.session.user.stories.splice(index, 1);
+
       res.send(200);
     }).catch((err) => {
       res.send(500, err);

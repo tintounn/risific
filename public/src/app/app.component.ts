@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.request.get('/connected').then((res) => {
-      this.session.set('user', res);
+      this.session.set('user', res.json());
     }).catch((err) => {
       console.log('user not connected');
     });
