@@ -18,7 +18,7 @@ module.exports = {
 
 	  console.log(req.params.all());
 
-    Chapter.findOne(req.params.all()).then((chapter) => {
+    Chapter.findOne(req.params.all()).populate('story', {select: ['owner']}).then((chapter) => {
       res.send(200, chapter);
     }).catch((err) => {
       res.send(500, err);
@@ -47,11 +47,13 @@ module.exports = {
 
   update: function(req, res) {
 	  let data = req.body;
+	  let id = req.params.id;
+	  let story = req.params.story;
 
 	  delete data.story;
     delete data.id;
 
-	  Chapter.update(req.params.all(), data).then((chapter) => {
+	  Chapter.update({id: id, story: story}, data).then((chapter) => {
       res.send(200, chapter);
     }).catch((err) => {
 	    res.send(500, err);

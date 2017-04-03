@@ -2,7 +2,6 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Story, StoryFactory } from '../../models/story';
-import { EditorComponent } from '../../component/editor/editor.component';
 import {SessionService} from "../../services/session.service";
 import {Chapter} from "../../models/chapter";
 
@@ -22,6 +21,7 @@ export class StoryComponent implements OnInit {
 
     this.storyFactory.findOne(id).then((res) => {
       this.story = res;
+      this.storyFactory.viewed(this.story.id);
     }).catch((err) => {
       console.log(err);
     });
@@ -75,7 +75,6 @@ export class StoryEditor implements OnInit {
       console.log(err);
     });
   }
-
 }
 
 

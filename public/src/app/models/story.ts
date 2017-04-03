@@ -24,7 +24,6 @@ export class Story {
     this.owner = data.owner;
     this.chapters = data.chapters;
   }
-
 }
 
 @Injectable()
@@ -57,6 +56,10 @@ export class StoryFactory {
 
   mostViewed(limit: number): Promise<Story[]> {
     return this.request.get('/stories/mostviewed', "limit="+limit).then(response => response.json().map((elt) => {return new Story(elt)}));
+  }
+
+  viewed(id: number): Promise<any> {
+    return this.request.put('/stories/' + id + '/viewed', {});
   }
 
   createOrUpdate(story: Story): Promise<Story> {

@@ -22,7 +22,32 @@ module.exports = {
   },
 
   mostviewed: function(req, res) {
+    let limit = req.query.limit;
+    let criteria = {};
 
+    if(limit) criteria.limit = limit;
+    criteria.sort = 'viewed DESC';
+
+    Story.find(criteria).populate('owner', {select: ['username']}).then((stories) => {
+      res.send(200, stories);
+    }).catch((err) => {
+      res.send(500, err);
+    });
+  },
+
+  viewed: function(req, res) {
+    let id = req.params.id;
+
+    Story.findOne({id: id}).then((story) => {
+      story.viewed+=1;
+      delete story.id;
+
+      return Story.update({id: id}, {viewed: story.viewed});
+    }).then((story) => {
+      res.send(200);
+    }).catch((err) => {
+      res.send(500, err);
+    });
   },
 
 	find: function(req, res) {

@@ -17,6 +17,10 @@ module.exports = {
     image: {
       type: 'string'
     },
+    viewed: {
+      type: 'integer',
+      defaultsTo: 0
+    },
     chapters: {
       collection: 'chapter',
       via: 'story'

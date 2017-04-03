@@ -18,6 +18,7 @@ import { SessionService } from './services/session.service';
 import { RequestService } from './services/request.service';
 import { AuthComponent } from './pages/auth/auth.component';
 import { EditorComponent } from './component/editor/editor.component';
+import { ConfirmButtonComponent } from './component/confirm-button/confirm-button.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -34,7 +35,8 @@ const routes: Routes = [
     ChapterComponent, ChapterEditor, ChapterCard,
     UserComponent,
     AuthComponent,
-    EditorComponent
+    EditorComponent,
+    ConfirmButtonComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

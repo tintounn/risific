@@ -10,6 +10,7 @@ import {StoryFactory, Story} from "../../models/story";
 export class HomeComponent implements OnInit {
 
   public lastest: Array<Story> = [];
+  public mostViewed: Array<Story> = [];
 
   constructor(private storyFactory: StoryFactory) { }
 
@@ -27,6 +28,10 @@ export class HomeComponent implements OnInit {
   }
 
   private getMostViewedStories() {
-
+    this.storyFactory.mostViewed(4).then((stories: Story[]) => {
+      this.mostViewed = stories;
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 }

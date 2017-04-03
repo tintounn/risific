@@ -55,12 +55,12 @@ module.exports.routes = {
   'post /stories': 'StoryController.create',
   'delete /stories/:id': 'StoryController.delete',
   'put /stories/:id': 'StoryController.update',
+  'put /stories/:id/viewed': 'StoryController.viewed',
 
   'get /stories/:story/chapters': 'ChapterController.find',
   'get /stories/:story/chapters/:id': 'ChapterController.findOne',
   'post /stories/:story/chapters': 'ChapterController.create',
   'delete /stories/:story/chapters/:id': 'ChapterController.delete',
-
-
+  'put /stories/:story/chapters/:id': 'ChapterController.update',
 
 };

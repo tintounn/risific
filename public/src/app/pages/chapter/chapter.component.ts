@@ -1,11 +1,8 @@
-import {
-  Component, OnInit, AfterViewInit, Output, Input, EventEmitter, ViewChild, PipeTransform, Pipe,
-  ElementRef
-} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import {Component, OnInit, AfterViewInit, Output, Input, EventEmitter, ViewChild} from '@angular/core';
 import {Chapter, ChapterFactory} from "../../models/chapter";
 import {ActivatedRoute} from "@angular/router";
 import {EditorComponent} from "../../component/editor/editor.component";
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-chapter',
@@ -14,26 +11,22 @@ import {EditorComponent} from "../../component/editor/editor.component";
 })
 export class ChapterComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('dataContainer') dataContainer: ElementRef;
   public chapter: Chapter;
 
-  constructor(private route: ActivatedRoute, private chapterFactory: ChapterFactory) { }
+  constructor(private route: ActivatedRoute, private chapterFactory: ChapterFactory, public session: SessionService) { }
 
   ngOnInit() {
-
-  }
-
-  ngAfterViewInit() {
     let storyId = this.route.snapshot.params['story'];
     let chapterId = this.route.snapshot.params['id'];
 
     this.chapterFactory.findOne(storyId, chapterId).then((chapter) => {
       this.chapter = chapter;
-      this.dataContainer.nativeElement.innerHTML = this.chapter.text;
     }).catch((err) => {
       console.log(err);
     });
   }
+
+  ngAfterViewInit() { }
 }
 
 @Component({
@@ -49,8 +42,6 @@ export class ChapterComponent implements OnInit, AfterViewInit {
         <app-editor #editorChapter [id]="'editorChapter'"></app-editor>
       </div>
     </form>
-    
-    
     
     <div class="row">
       <div class="col">
@@ -71,18 +62,14 @@ export class ChapterEditor implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   ngAfterViewInit() {
-    if(this.chapter.id) {
+    if(this.chapter.id && this.chapter.text) {
       this.editor.setContent(this.chapter.text);
     }
   }
 
   save() {
     this.chapter.text = this.editor.getContent();
-    this.chapter.story = this.storyId;
-
-    console.log(this.chapter);
-
-    this.chapterFactory.createOrUpdate(this.chapter).then((res) => {
+    this.chapterFactory.createOrUpdate(this.storyId, this.chapter).then((res) => {
       this.savedEvent.emit(res);
     }).catch((err) => {
       console.log(err);

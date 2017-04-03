@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import {RequestService} from "../services/request.service";
+import {Story} from "./story";
 
 export class Chapter {
   public id: number;
@@ -8,7 +9,7 @@ export class Chapter {
   public text: string;
   public createdAt: string;
   public updatedAt: string;
-  public story: number;
+  public story: Story;
 
   constructor(data: any) {
     if(data.id) this.id = data.id;
@@ -44,13 +45,13 @@ export class ChapterFactory {
     return this.request.put('/stories/' + storyId + '/chapters/' + chapter.id, chapter).then(response => new Chapter(response.json()));
   }
 
-  createOrUpdate(chapter: Chapter): Promise<Chapter> {
+  createOrUpdate(storyId: number, chapter: Chapter): Promise<Chapter> {
     let promise;
 
     if(chapter.id) {
-      promise = this.update(chapter.story, chapter);
+      promise = this.update(storyId, chapter);
     } else {
-      promise = this.create(chapter.story, chapter);
+      promise = this.create(storyId, chapter);
     }
 
     return promise;

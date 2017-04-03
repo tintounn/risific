@@ -1,5 +1,13 @@
 <ng-container *ngIf="story">
 
+  <ng-container *ngIf="session.isMyOwnStory(story.owner.id)">
+    <div class="btn-group">
+      <button class="btn btn-primary" data-toggle="modal" data-target=".new-chapter">Ecrire un nouveau chapitre</button>
+      <button class="btn btn-secondary" data-toggle="modal" data-target=".edit-story">Modifier la fic</button>
+      <button class="btn btn-danger">Supprimer la fic</button>
+    </div>
+  </ng-container>
+
   <h1 class="text-center">{{story.titre}}</h1>
 
   <img class="rounded mx-auto d-block" src="{{story.image}}"/>
@@ -7,10 +15,6 @@
   <p class="text-center">{{story.description}}</p>
 
   <h3>Chapitres:</h3>
-
-  <ng-container *ngIf="session.isMyOwnStory(story.owner.id)">
-    <button class="btn btn-primary" data-toggle="modal" data-target=".new-chapter">Ecrire un nouveau chapitre</button>
-  </ng-container>
 
   <ng-container *ngFor="let chapter of story.chapters; let i = index;">
     <app-chapter-card [index]="i" [chapter]="chapter"></app-chapter-card>
@@ -33,10 +37,29 @@
           </div>
 
         </div>
-
       </div>
     </div>
   </div>
 
+  <div class="modal fade edit-story" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="editStoryTitle">{{story.titre}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="container">
+            <app-story-editor [story]="story"></app-story-editor>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 </ng-container>
