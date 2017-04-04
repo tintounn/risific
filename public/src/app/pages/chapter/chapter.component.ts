@@ -1,8 +1,9 @@
-import {Component, OnInit, AfterViewInit, Output, Input, EventEmitter, ViewChild} from '@angular/core';
+import {Component, OnInit, AfterViewInit, Output, Input, EventEmitter, ViewChild, Pipe} from '@angular/core';
 import {Chapter, ChapterFactory} from "../../models/chapter";
 import {ActivatedRoute} from "@angular/router";
 import {EditorComponent} from "../../component/editor/editor.component";
 import {SessionService} from "../../services/session.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-chapter',
@@ -15,7 +16,9 @@ export class ChapterComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute, private chapterFactory: ChapterFactory, public session: SessionService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ngAfterViewInit() {
     let storyId = this.route.snapshot.params['story'];
     let chapterId = this.route.snapshot.params['id'];
 
@@ -25,8 +28,6 @@ export class ChapterComponent implements OnInit, AfterViewInit {
       console.log(err);
     });
   }
-
-  ngAfterViewInit() { }
 }
 
 @Component({
@@ -97,4 +98,15 @@ export class ChapterCard implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+}
+
+@Pipe({name: 'safeHtml'})
+export class SafeHtml {
+  constructor(private sanitizer: DomSanitizer){}
+
+  transform(style) {
+    //return this.sanitizer.bypassSecurityTrustStyle(style);
+    return this.sanitizer.bypassSecurityTrustHtml(style);
+    // return this.sanitizer.bypassSecurityTrustXxx(style); - see docs
+  }
 }

@@ -8,7 +8,7 @@
 
   <h2 class="text-center">{{chapter.titre}}</h2>
 
-  <div #dataContainer>{{chapter.text}}</div>
+  <div [innerHTML]="chapter.text | safeHtml"></div>
 
   <div class="modal fade edit-chapter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

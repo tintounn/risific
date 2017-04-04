@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { StoryComponent, StoryEditor, StoryCard } from './pages/story/story.component';
-import { ChapterComponent, ChapterEditor, ChapterCard } from './pages/chapter/chapter.component';
+import { ChapterComponent, ChapterEditor, ChapterCard, SafeHtml } from './pages/chapter/chapter.component';
 import { UserComponent } from './pages/user/user.component';
 
 import { UserFactory } from './models/user';
@@ -36,7 +36,8 @@ const routes: Routes = [
     UserComponent,
     AuthComponent,
     EditorComponent,
-    ConfirmButtonComponent
+    ConfirmButtonComponent,
+    SafeHtml
   ],
   imports: [
     RouterModule.forRoot(routes),
